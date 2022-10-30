@@ -15,7 +15,8 @@ public:
 	void Add(int, string, int);
 	string getPokemon(int);
 	int Count();
-	void Ordenar_shell_sort(int);
+	void Shell_sort_Nacional(int);
+	void Shell_sort_Generacion(int);
 private:
 	Nodeli* header = nullptr;
 };

@@ -20,13 +20,13 @@ public:
 	}
 
 	int getNumero_nacional() {
-		return numero_nacional;
+		return this->numero_nacional;
 	}
 	string getNombre() {
-		return nombre;
+		return this->nombre;
 	}
 	int getGeneracion() {
-		return generacion;
+		return this->generacion;
 	}
 
 };

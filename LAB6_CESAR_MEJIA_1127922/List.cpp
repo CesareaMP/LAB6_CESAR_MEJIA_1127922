@@ -5,91 +5,89 @@ void LIST::Add(int nn, string n , int g)
 	Nodeli* aux = new Nodeli();
 	aux->pok.setNumero_nacional(nn);
 	aux->pok.setNombre(n);
-	aux->num_gnombre += g;
-	for (int i = 0; i < n.length(); i++)
-	{
-		switch (toupper(n[i]))
+	aux->num_gnombre = g;
+		switch (toupper(n[0]))
 		{
 		case 'A':
-			aux->num_gnombre += 0.001;
+			aux->num_gnombre += 0.1;
 			break;
 		case 'B':
-			aux->num_gnombre += 0.002;
+			aux->num_gnombre += 0.02;
 			break;
 		case 'C':
-			aux->num_gnombre += 0.003;
+			aux->num_gnombre += 0.03;
 			break;
 		case 'D':
-			aux->num_gnombre += 0.004;
+			aux->num_gnombre += 0.04;
 			break;
 		case 'E':
-			aux->num_gnombre += 0.005;
+			aux->num_gnombre += 0.05;
 			break;
 		case 'F':
-			aux->num_gnombre += 0.006;
+			aux->num_gnombre += 0.06;
 			break;
 		case 'G':
-			aux->num_gnombre += 0.007;
+			aux->num_gnombre += 0.07;
 			break;
 		case 'H':
-			aux->num_gnombre += 0.008;
+			aux->num_gnombre += 0.08;
 			break;
 		case 'I':
-			aux->num_gnombre += 0.009;
+			aux->num_gnombre += 0.09;
 			break;
 		case 'J':
-			aux->num_gnombre += 0.010;
+			aux->num_gnombre += 0.10;
 			break;
 		case 'K':
-			aux->num_gnombre += 0.011;
+			aux->num_gnombre += 0.11;
 			break;
 		case 'L':
-			aux->num_gnombre += 0.012;
+			aux->num_gnombre += 0.12;
 			break;
 		case 'M':
-			aux->num_gnombre += 0.013;
+			aux->num_gnombre += 0.13;
 			break;
 		case 'N':
-			aux->num_gnombre += 0.014;
+			aux->num_gnombre += 0.14;
 			break;
 		case 'O':
-			aux->num_gnombre += 0.015;
+			aux->num_gnombre += 0.15;
 			break;
 		case 'P':
-			aux->num_gnombre += 0.016;
+			aux->num_gnombre += 0.16;
 			break;
 		case 'Q':
-			aux->num_gnombre += 0.017;
+			aux->num_gnombre += 0.17;
 			break;
 		case 'R':
-			aux->num_gnombre += 0.018;
+			aux->num_gnombre += 0.18;
 			break;
 		case 'S':
-			aux->num_gnombre += 0.019;
+			aux->num_gnombre += 0.19;
 			break;
 		case 'T':
-			aux->num_gnombre += 0.020;
+			aux->num_gnombre += 0.20;
 			break;
 		case 'U':
-			aux->num_gnombre += 0.021;
+			aux->num_gnombre += 0.21;
 			break;
 		case 'V':
-			aux->num_gnombre += 0.022;
+			aux->num_gnombre += 0.22;
 			break;
 		case 'W':
-			aux->num_gnombre += 0.023;
+			aux->num_gnombre += 0.23;
 			break;
 		case 'X':
-			aux->num_gnombre += 0.024;
+			aux->num_gnombre += 0.24;
 			break;
 		case 'Y':
-			aux->num_gnombre += 0.025;
+			aux->num_gnombre += 0.25;
 			break;
 		case 'Z':
-			aux->num_gnombre += 0.026;
+			aux->num_gnombre += 0.26;
 			break;
 		}
-	}
+
 	aux->pok.setGeneracion(g);
 	aux->next = header;
 	header = aux;
@@ -117,81 +115,117 @@ int LIST::Count()
 	return contador;
 }
 
-void LIST::Ordenar_shell_sort(int n)
+void LIST::Shell_sort_Generacion(int n)
 {
-	Nodeli* actual = header;
+	Nodeli* anterior = header;
 	Nodeli* siguiente = header;
-	
-	int intervalo = n / 2;
-	int naciona, gnracion;
-	double gmasnombre=0.0;
-	string nombre;
-	/*{
-		while (intervalo > 0)
+
+	int intervalo = n / 2, contadora = 0, contadors = 0;
+	int nacional = 0, generacion = 0;
+	double gmasnombre = 0;
+	string nombre = "";
+
+	while (intervalo > -1)
+	{
+		contadors = intervalo + 1;
+		while (contadors < n)
 		{
-			actual = header;
+			anterior = header;
 			siguiente = header;
 			for (int i = 0; i < contadora; i++)
 			{
-				actual = actual->next;
+				anterior = anterior->next;
 			}
-			for (int i = 0; i < contadors; i++)
+			for (int j = 0; j < contadors; j++)
 			{
 				siguiente = siguiente->next;
 			}
-			if (actual->num_gnombre > siguiente->num_gnombre)
+			if (anterior->num_gnombre < siguiente->num_gnombre)
 			{
-				nombre = actual->pok.getNombre();
-				naciona = actual->pok.getNumero_nacional();
-				gnracion = actual->pok.getGeneracion();
-				gmasnombre = actual->num_gnombre;
+				nacional = anterior->pok.getNumero_nacional();
+				generacion = anterior->pok.getGeneracion();
+				nombre = anterior->pok.getNombre();
+				gmasnombre = anterior->num_gnombre;
 
-				actual->pok.setNombre(siguiente->pok.getNombre());
-				actual->pok.setGeneracion(siguiente->pok.getGeneracion());
-				actual->pok.setNumero_nacional(siguiente->pok.getNumero_nacional());
-				actual->num_gnombre = siguiente->num_gnombre;
+				anterior->pok.setNumero_nacional(siguiente->pok.getNumero_nacional());
+				anterior->pok.setGeneracion(siguiente->pok.getGeneracion());
+				anterior->pok.setNombre(siguiente->pok.getNombre());
+				anterior->num_gnombre = siguiente->num_gnombre;
 
+				siguiente->pok.setNumero_nacional(nacional);
+				siguiente->pok.setGeneracion(generacion);
 				siguiente->pok.setNombre(nombre);
-				siguiente->pok.setGeneracion(gnracion);
-				siguiente->pok.setNumero_nacional(naciona);
 				siguiente->num_gnombre = gmasnombre;
-
 			}
 			contadora++;
 			contadors++;
-
-			if (contadors >= intervalo)
-			{
-				contadora = 0;
-				contadors = 0;
-				intervalo /= 2;
-			}
 		}
-	}*/
-	while (actual!=nullptr)
-	{
-		siguiente = actual->next;
-		while (siguiente!=nullptr)
+		if (intervalo == 0)
 		{
-			if (actual->num_gnombre > siguiente->num_gnombre)
+			intervalo -= 2;
+		}
+		else {
+			intervalo /= 2;
+			contadors = 0;
+			contadora = 0;
+		}
+	}
+}
+
+void LIST::Shell_sort_Nacional(int n)
+{
+	Nodeli* anterior = header;
+	Nodeli* siguiente=header;
+	
+	int intervalo = n / 2,contadora=0,contadors=0;
+	int nacional=0, generacion=0;
+	double gmasnombre=0;
+	string nombre="";
+	
+	while (intervalo>-1)
+	{
+		contadors = intervalo+1;
+		while (contadors<n)
+		{
+			anterior = header;
+			siguiente = header;
+			for (int i = 0; i < contadora; i++)
 			{
-				naciona = actual->pok.getNumero_nacional();
-				gnracion = actual->pok.getGeneracion();
-				nombre = actual->pok.getNombre();
-				gmasnombre = actual->num_gnombre;
+				anterior = anterior->next;
+			}
+			for (int j = 0; j < contadors; j++)
+			{
+				siguiente = siguiente->next;
+			}
+			if (anterior->pok.getNumero_nacional() < siguiente->pok.getNumero_nacional())
+			{
+				nacional = anterior->pok.getNumero_nacional();
+				generacion = anterior->pok.getGeneracion();
+				nombre = anterior->pok.getNombre();
+				gmasnombre = anterior->num_gnombre;
 
-				actual->pok.setNumero_nacional(siguiente->pok.getNumero_nacional());
-				actual->pok.setGeneracion(siguiente->pok.getGeneracion());
-				actual->pok.setNombre(siguiente->pok.getNombre());
-				actual->num_gnombre = siguiente->num_gnombre;
+				anterior->pok.setNumero_nacional(siguiente->pok.getNumero_nacional());
+				anterior->pok.setGeneracion(siguiente->pok.getGeneracion());
+				anterior->pok.setNombre(siguiente->pok.getNombre());
+				anterior->num_gnombre = siguiente->num_gnombre;
 
-				siguiente->pok.setGeneracion(gnracion);
-				siguiente->pok.setNumero_nacional(naciona);
+				siguiente->pok.setNumero_nacional(nacional);
+				siguiente->pok.setGeneracion(generacion);
 				siguiente->pok.setNombre(nombre);
 				siguiente->num_gnombre = gmasnombre;
 			}
-			siguiente = siguiente->next;
+			contadora++;
+			contadors++;
 		}
-		actual = actual->next;
+		if (intervalo==0)
+		{
+			intervalo -= 2;
+		}
+		else {
+			intervalo /= 2;
+			contadors = 0;
+			contadora = 0;
+		}
 	}
+	
 }
